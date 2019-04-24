@@ -9,7 +9,7 @@ import NotePageMain from '../NotePageMain/NotePageMain';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
 import dummyStore from '../dummy-store';
-import { getNotesForFolder, findNote, findFolder } from '../notes-helpers';
+import { findNote, findFolder } from '../notes-helpers';
 import './App.css';
 console.log(NoteContext);
 class App extends Component {
@@ -32,9 +32,7 @@ class App extends Component {
             exact
             key={path}
             path={path}
-            render={routeProps => (
-              <NoteListNav folders={folders} notes={notes} {...routeProps} />
-            )}
+            component={NoteListNav}
           />
         ))}
         <Route
@@ -62,9 +60,7 @@ class App extends Component {
             key={path}
             path={path}
             render={routeProps => {
-              const { folderId } = routeProps.match.params;
-              const notesForFolder = getNotesForFolder(notes, folderId);
-              return <NoteListMain {...routeProps} notes={notesForFolder} />;
+              return <NoteListMain {...routeProps}/>;
             }}
           />
         ))}
@@ -79,9 +75,7 @@ class App extends Component {
         <Route path='/add-folder' component={AddFolder} />
         <Route
           path='/add-note'
-          render={routeProps => {
-            return <AddNote {...routeProps} folders={folders} />;
-          }}
+          component={AddNote}
         />
       </>
     );

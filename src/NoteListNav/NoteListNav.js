@@ -6,7 +6,7 @@ import CircleButton from '../CircleButton/CircleButton';
 import { countNotesForFolder } from '../notes-helpers';
 import './NoteListNav.css';
 
-export default function NoteListNav(props) {
+export default function NoteListNav() {
   return (
     <NoteContext.Consumer>
       {({ notes, folders }) => (
