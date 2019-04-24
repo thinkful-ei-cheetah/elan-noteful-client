@@ -8,7 +8,6 @@ import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
-import dummyStore from '../dummy-store';
 import { findNote, findFolder } from '../notes-helpers';
 import './App.css';
 
@@ -17,14 +16,14 @@ class App extends Component {
     notes: [],
     folders: []
   };
+  FolderUrl = 'http://localhost:9090/folders';
+  NoteUrl = 'http://localhost:9090/notes';
 
   componentDidMount() {
     // fake date loading from API call
     // setTimeout(() => this.setState(dummyStore), 600);
-    const FolderUrl = 'http://localhost:9090/folders';
-    const NoteUrl = 'http://localhost:9090/notes';
 
-    fetch(FolderUrl)
+    fetch(this.FolderUrl)
       .then(res => {
         if (!res.ok) {
           throw new Error('Something went wrong, please try again later.');
@@ -44,7 +43,7 @@ class App extends Component {
         });
       });
 
-    fetch(NoteUrl)
+    fetch(this.NoteUrl)
       .then(res => {
         if (!res.ok) {
           throw new Error('Something went wrong, please try again later.');
@@ -63,6 +62,33 @@ class App extends Component {
           error: err.message
         });
       });
+  }
+
+  handleDeleteNote = (id) => {
+    const newNotes = this.state.notes.filter(note => note.id !== id);
+    console.log(newNotes)
+    const options = {
+      method: 'DELETE'
+    }
+    fetch(`${this.NoteUrl}/${id}`, options)
+      .then(res => {
+        if(!res.ok) {
+          throw new Error('Something went wrong');
+        }
+        return res;
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          notes: newNotes,
+          error: null
+        });
+      })
+      .catch(err => {
+        this.setState({
+          error: err.message
+        })
+      })
   }
 
   renderNavRoutes() {
@@ -114,7 +140,7 @@ class App extends Component {
   render() {
     return (
       <NoteContext.Provider
-        value={{ folders: this.state.folders, notes: this.state.notes }}
+        value={{ folders: this.state.folders, notes: this.state.notes, handleDelete: this.handleDeleteNote }}
       >
         <div className='App'>
           <nav className='App__nav'>{this.renderNavRoutes()}</nav>

@@ -2,7 +2,8 @@ import React from 'react';
 
 const NoteContext = React.createContext({
   notes: [],
-  folders: []
+  folders: [],
+  handleDelete: () => {}
 });
 
 export default NoteContext;

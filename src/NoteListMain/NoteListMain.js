@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Note from '../Note/Note'
@@ -7,16 +7,17 @@ import './NoteListMain.css'
 import NoteContext from '../NoteContext';
 import { getNotesForFolder } from '../notes-helpers'
 
-export default function NoteListMain(props) {
-  const { folderId } = props.match.params;
+export default class NoteListMain extends Component {
+  static contextType = NoteContext;
+  render() {  
+    const { folderId } = this.props.match.params;
   return (
-    <NoteContext.Consumer>
-    {({notes}) => (
       <section className='NoteListMain'>
         <ul>
-          {getNotesForFolder(notes, folderId).map(note =>
+          {getNotesForFolder(this.context.notes, folderId).map(note =>
             <li key={note.id}>
               <Note
+                handleDelete={this.context.handleDelete}
                 id={note.id}
                 name={note.name}
                 modified={note.modified}
@@ -37,10 +38,7 @@ export default function NoteListMain(props) {
           </CircleButton>
         </div>
       </section>
-    )}
-    </NoteContext.Consumer>
-    
-  )
+    )}   
 }
 
 NoteListMain.defaultProps = {
