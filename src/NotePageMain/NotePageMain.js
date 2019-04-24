@@ -9,7 +9,6 @@ export default class NotePageMain extends Component{
   render() {
     const { noteId } = this.props.match.params;
     const note = findNote(this.context.notes, noteId);
-    console.log(note)
   return (
       <section className='NotePageMain'>
         <Note
@@ -18,7 +17,7 @@ export default class NotePageMain extends Component{
           modified={note.modified}
         />
         <div className='NotePageMain__content'>
-          {findNote(this.context.notes, noteId).content.split(/\n \r|\n/).map((para, i) =>
+          {note.content.split(/\n \r|\n/).map((para, i) =>
             <p key={i}>{para}</p>
           )}
         </div>

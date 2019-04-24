@@ -11,7 +11,7 @@ import AddNote from '../AddNote/AddNote';
 import dummyStore from '../dummy-store';
 import { findNote, findFolder } from '../notes-helpers';
 import './App.css';
-console.log(NoteContext);
+
 class App extends Component {
   state = {
     notes: [],
@@ -51,7 +51,6 @@ class App extends Component {
   }
 
   renderMainRoutes() {
-    const { notes, folders } = this.state;
     return (
       <>
         {['/', '/folder/:folderId'].map(path => (
@@ -67,9 +66,7 @@ class App extends Component {
         <Route
           path='/note/:noteId'
           render={routeProps => {
-            const { noteId } = routeProps.match.params;
-            const note = findNote(notes, noteId);
-            return <NotePageMain {...routeProps} note={note} />;
+            return <NotePageMain {...routeProps}/>;
           }}
         />
         <Route path='/add-folder' component={AddFolder} />
