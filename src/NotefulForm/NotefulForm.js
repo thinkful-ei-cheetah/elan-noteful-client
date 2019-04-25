@@ -1,9 +1,11 @@
-import React, { Component } from 'react'
-import './NotefulForm.css'
+import React, { Component } from 'react';
+import PropTypes, { shape, string } from 'prop-types';
+import './NotefulForm.css';
 
 export default class NotefulForm extends Component {
   render() {
     const { className, ...otherProps } = this.props
+    console.log(otherProps)
     return (
       <form 
         className={['Noteful-form', className].join(' ')}
@@ -14,4 +16,9 @@ export default class NotefulForm extends Component {
     )
   }
 
+}
+
+NotefulForm.propTypes = {
+  className: string,
+  formSubmit: PropTypes.func
 }

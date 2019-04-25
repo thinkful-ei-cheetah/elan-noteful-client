@@ -39,5 +39,6 @@ export default class Note extends Component {
 
 Note.PropTypes = {
   id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  modified: PropTypes.number
 }

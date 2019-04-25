@@ -2,6 +2,7 @@ import React, {Component } from 'react'
 import Note from '../Note/Note'
 import { findNote } from '../notes-helpers';
 import './NotePageMain.css';
+import { shape, string } from 'prop-types'
 import NoteContext from '../NoteContext';
 
 export default class NotePageMain extends Component{
@@ -30,4 +31,12 @@ NotePageMain.defaultProps = {
   note: {
     content: '',
   }
+}
+
+NotePageMain.propTypes = {
+  match: shape({
+    params: shape({
+      noteId: string
+    })
+  })
 }

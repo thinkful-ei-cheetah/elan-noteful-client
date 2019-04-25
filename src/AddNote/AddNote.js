@@ -139,3 +139,9 @@ export default class AddNote extends Component {
     )
   }
 }
+
+AddNote.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func
+  })
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import NotefulForm from '../NotefulForm/NotefulForm'
 import Error from '../Error'
+import PropTypes from 'prop-types'
 import './AddFolder.css'
 import NoteContext from '../NoteContext'
 
@@ -75,4 +76,10 @@ export default class AddFolder extends Component {
       </Error>
     )
   }
+}
+
+AddFolder.propTypes = {
+  history: PropTypes.shape({
+    goBack: PropTypes.func
+  })
 }
