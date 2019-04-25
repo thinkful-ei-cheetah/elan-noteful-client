@@ -3,6 +3,20 @@ import NotefulForm from '../NotefulForm/NotefulForm'
 import './AddFolder.css'
 
 export default class AddFolder extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      nameValid: false,
+      validationMessage: ''
+    }
+  }
+
+  handleNameChange = name => {
+    this.setState({
+      name
+    })
+  }
   render() {
     return (
       <section className='AddFolder'>
