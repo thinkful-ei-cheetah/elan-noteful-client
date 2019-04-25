@@ -8,8 +8,8 @@ import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
+import Error from '../Error'
 import { findNote, findFolder } from '../notes-helpers';
-import Error from '../Error';
 import './App.css';
 
 class App extends Component {
@@ -179,28 +179,28 @@ class App extends Component {
   }
   render() {
     return (
-      <NoteContext.Provider
-        value={{ 
-          folders: this.state.folders, 
-          notes: this.state.notes, 
-          handleDelete: this.handleDeleteNote, 
-          handleFolder: this.handleDeleteFolder, 
-          handleAdd: this.handleAddNote, 
-          handleFolderAdd: this.handleAddFolder }}
-      >
-        <Error>
-        <div className='App'>
-          <nav className='App__nav'>{this.renderNavRoutes()}</nav>
-          <header className='App__header'>
-            <h1>
-              <Link to='/'>Noteful</Link>{' '}
-              <FontAwesomeIcon icon='check-double' />
-            </h1>
-          </header>
-          <main className='App__main'>{this.renderMainRoutes()}</main>
-        </div>
-        </Error>
-      </NoteContext.Provider>
+      <Error>
+        <NoteContext.Provider
+          value={{ 
+            folders: this.state.folders, 
+            notes: this.state.notes, 
+            handleDelete: this.handleDeleteNote, 
+            handleFolder: this.handleDeleteFolder, 
+            handleAdd: this.handleAddNote, 
+            handleFolderAdd: this.handleAddFolder }}
+        >
+          <div className='App'>
+            <nav className='App__nav'>{this.renderNavRoutes()}</nav>
+            <header className='App__header'>
+              <h1>
+                <Link to='/'>Noteful</Link>{' '}
+                <FontAwesomeIcon icon='check-double' />
+              </h1>
+            </header>
+            <main className='App__main'>{this.renderMainRoutes()}</main>
+          </div>
+        </NoteContext.Provider>
+      </Error>
     );
   }
 }

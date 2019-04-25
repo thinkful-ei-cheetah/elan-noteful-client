@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NotefulForm from '../NotefulForm/NotefulForm';
+import Error from '../Error'
 import './AddNote.css';
 import NoteContext from '../NoteContext';
 import PropTypes from 'prop-types';
@@ -48,7 +49,6 @@ export default class AddNote extends Component {
         folder: this.state.noteFolder
       })
     }
-    console.log(this.props)
     fetch('http://localhost:9090/notes/', options)
       .then(res => {
         if(!res.ok) {
@@ -88,6 +88,7 @@ export default class AddNote extends Component {
   render() {
     const { folders } = this.context;
     return (
+      <Error>
       <section className='AddNote'>
         <h2>Create a note</h2>
         {this.state.error}
@@ -134,6 +135,7 @@ export default class AddNote extends Component {
           </div>
         </NotefulForm>
       </section>
+      </Error>
     )
   }
 }
