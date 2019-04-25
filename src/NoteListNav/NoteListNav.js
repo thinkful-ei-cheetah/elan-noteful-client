@@ -9,7 +9,7 @@ import './NoteListNav.css';
 export default function NoteListNav() {
   return (
     <NoteContext.Consumer>
-      {({ notes, folders }) => (
+      {({ notes, folders, handleFolder }) => (
         <div className='NoteListNav'>
           <ul className='NoteListNav__list'>
             {folders.map(folder => (
@@ -21,7 +21,8 @@ export default function NoteListNav() {
                   <span className='NoteListNav__num-notes'>
                     {countNotesForFolder(notes, folder.id)}
                   </span>
-                  {folder.name}
+                  {folder.name}<br />
+                  <button onClick={() => handleFolder(folder.id)}>Delete Folder</button>
                 </NavLink>
               </li>
             ))}

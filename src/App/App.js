@@ -64,9 +64,20 @@ class App extends Component {
       });
   }
 
+  handleAddNote = (note) => {
+    this.setState({
+      notes: [...this.state.notes, note]
+    })
+  }
+
+  handleAddFolder = (folder) => {
+    this.setState({
+      folders: [...this.state.folders, folder]
+    })
+  }
+
   handleDeleteNote = (id) => {
     const newNotes = this.state.notes.filter(note => note.id !== id);
-    console.log(newNotes)
     const options = {
       method: 'DELETE'
     }
@@ -81,6 +92,32 @@ class App extends Component {
       .then(data => {
         this.setState({
           notes: newNotes,
+          error: null
+        });
+      })
+      .catch(err => {
+        this.setState({
+          error: err.message
+        })
+      })
+  }
+
+  handleDeleteFolder = id => {
+    const newFolders = this.state.folders.filter(folder => folder.id !== id);
+    const options = {
+      method: 'DELETE'
+    }
+    fetch(`${this.FolderUrl}/${id}`, options)
+      .then(res => {
+        if(!res.ok) {
+          throw new Error('Something went wrong');
+        }
+        return res;
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          folders: newFolders,
           error: null
         });
       })
@@ -140,7 +177,13 @@ class App extends Component {
   render() {
     return (
       <NoteContext.Provider
-        value={{ folders: this.state.folders, notes: this.state.notes, handleDelete: this.handleDeleteNote }}
+        value={{ 
+          folders: this.state.folders, 
+          notes: this.state.notes, 
+          handleDelete: this.handleDeleteNote, 
+          handleFolder: this.handleDeleteFolder, 
+          handleAdd: this.handleAddNote, 
+          handleFolderAdd: this.handleAddFolder }}
       >
         <div className='App'>
           <nav className='App__nav'>{this.renderNavRoutes()}</nav>
