@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NotefulForm from '../NotefulForm/NotefulForm';
-import Error from '../Error'
+import Error from '../Error';
+import PropTypes from 'prop-types';
 import './AddNote.css';
 import NoteContext from '../NoteContext';
 
