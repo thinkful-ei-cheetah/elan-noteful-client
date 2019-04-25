@@ -32,6 +32,6 @@ NotePageNav.defaultProps = {
   }
 }
 
-NotePageNav.PropTypes = {
+NotePageNav.propTypes = {
   folder: PropTypes.object.isRequired
 }
