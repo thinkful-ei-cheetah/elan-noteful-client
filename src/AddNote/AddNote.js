@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import NotefulForm from '../NotefulForm/NotefulForm'
-import './AddNote.css'
+import React, { Component } from 'react';
+import NotefulForm from '../NotefulForm/NotefulForm';
+import './AddNote.css';
 import NoteContext from '../NoteContext';
+import PropTypes from 'prop-types';
 
 export default class AddNote extends Component {
   static defaultProps = {
@@ -17,12 +18,13 @@ export default class AddNote extends Component {
       noteContent: '',
       noteFolder: '',
       noteValid: false,
-      validationMessage: null
+      validationMessage: '',
+      error: null
     }
   }
 
   handleNameChange = name => {
-    this.setState({noteName: name}, this.validateName())
+    this.setState({noteName: name}, () => {this.validateName(name)})
   }
 
   handleContentChange = content => {
@@ -59,31 +61,40 @@ export default class AddNote extends Component {
         const newNote = {
           name: results.name,
           content: results.content,
-          folder: results.folder
+          folderId: results.folder,
+          id: results.id
         }
         this.context.handleAdd(newNote)
       })
       .then(this.props.history.goBack())
-      .catch(err => console.error(err))
+      .catch(err => this.setState({error: err}))
   }
 
-  validateName = () => {
-    if (!this.state.noteName.length) {
+
+  validateName = (name) => {
+    if (name.length === 0) {
       this.setState({
-        validationMessage:'The note field must not be left blank.'
+        validationMessage:'The note field must not be left blank.',
+        noteValid: false
       })
-    } 
-  }
+    } else {
+      this.setState({
+        validationMessage: null,
+        noteValid: true
+      })
+    }
+  }   
 
   render() {
     const { folders } = this.context;
     return (
       <section className='AddNote'>
         <h2>Create a note</h2>
+        {this.state.error}
         <NotefulForm formSubmit={this.handleFormSubmit}>
           <div className='field'>
             <label htmlFor='note-name-input'>
-            {this.state.validationMessage}
+            {this.state.validationMessage} <br />
               Name
             </label>
             <input 
@@ -115,7 +126,9 @@ export default class AddNote extends Component {
             </select>
           </div>
           <div className='buttons'>
-            <button type='submit'>
+            <button
+              disabled={!this.state.noteValid}
+              type='submit'>
               Add note
             </button>
           </div>

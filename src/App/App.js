@@ -9,12 +9,14 @@ import NotePageMain from '../NotePageMain/NotePageMain';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
 import { findNote, findFolder } from '../notes-helpers';
+import Error from '../Error';
 import './App.css';
 
 class App extends Component {
   state = {
     notes: [],
-    folders: []
+    folders: [],
+    error: null
   };
   FolderUrl = 'http://localhost:9090/folders';
   NoteUrl = 'http://localhost:9090/notes';
@@ -63,6 +65,7 @@ class App extends Component {
         });
       });
   }
+
 
   handleAddNote = (note) => {
     this.setState({
@@ -185,6 +188,7 @@ class App extends Component {
           handleAdd: this.handleAddNote, 
           handleFolderAdd: this.handleAddFolder }}
       >
+        <Error>
         <div className='App'>
           <nav className='App__nav'>{this.renderNavRoutes()}</nav>
           <header className='App__header'>
@@ -195,6 +199,7 @@ class App extends Component {
           </header>
           <main className='App__main'>{this.renderMainRoutes()}</main>
         </div>
+        </Error>
       </NoteContext.Provider>
     );
   }
