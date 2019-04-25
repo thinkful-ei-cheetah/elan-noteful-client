@@ -3,7 +3,6 @@ import NotefulForm from '../NotefulForm/NotefulForm';
 import Error from '../Error'
 import './AddNote.css';
 import NoteContext from '../NoteContext';
-import PropTypes from 'prop-types';
 
 export default class AddNote extends Component {
   static defaultProps = {
