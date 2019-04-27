@@ -5,12 +5,12 @@ import './CircleButton.css'
 export default function NavCircleButton(props) {
   const { tag, className, children, ...otherProps } = props
   return React.createElement(
-    props.tag,
+    tag,
     {
-      className: ['NavCircleButton', props.className].join(' '),
+      className: ['NavCircleButton', className].join(' '),
       ...otherProps
     },
-    props.children
+    children
   )
 }
 
@@ -19,7 +19,10 @@ NavCircleButton.defaultProps ={
 }
 
 NavCircleButton.propTypes = {
-  tag: PropTypes.string,
+  tag: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func
+  ]),
   className: PropTypes.string,
   otherProps: PropTypes.shape({
     role: PropTypes.string,

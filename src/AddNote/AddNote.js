@@ -92,7 +92,7 @@ export default class AddNote extends Component {
       <section className='AddNote'>
         <h2>Create a note</h2>
         {this.state.error}
-        <NotefulForm formSubmit={this.handleFormSubmit}>
+        <NotefulForm onSubmit={this.handleFormSubmit}>
           <div className='field'>
             <label htmlFor='note-name-input'>
             {this.state.validationMessage} <br />
