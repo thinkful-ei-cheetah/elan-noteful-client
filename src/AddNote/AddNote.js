@@ -41,15 +41,16 @@ export default class AddNote extends Component {
     const options = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer 5ea97ca2-02d9-4c1e-9089-8c26f957fdb8`
       }, 
       body: JSON.stringify({
         name: this.state.noteName,
         content: this.state.noteContent,
-        folder: this.state.noteFolder
+        folder_id: this.state.noteFolder
       })
     }
-    fetch('http://localhost:9090/notes/', options)
+    fetch('http://localhost:8000/api/notes/', options)
       .then(res => {
         if(!res.ok) {
           throw new Error('Something went wrong. Please refresh the page.')
@@ -61,7 +62,7 @@ export default class AddNote extends Component {
         const newNote = {
           name: results.name,
           content: results.content,
-          folderId: results.folder,
+          folder_id: results.folder_id,
           id: results.id
         }
         this.context.handleAdd(newNote)

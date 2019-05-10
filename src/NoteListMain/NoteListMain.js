@@ -5,7 +5,6 @@ import Note from '../Note/Note'
 import CircleButton from '../CircleButton/CircleButton'
 import './NoteListMain.css'
 import NoteContext from '../NoteContext';
-import { shape, string } from 'prop-types'
 import { getNotesForFolder } from '../notes-helpers'
 
 export default class NoteListMain extends Component {
@@ -15,13 +14,14 @@ export default class NoteListMain extends Component {
   return (
       <section className='NoteListMain'>
         <ul>
-          {getNotesForFolder(this.context.notes, folderId).map(note =>
+          {getNotesForFolder(this.context.notes, parseFloat(folderId)).map(note =>
             <li key={note.id}>
               <Note
                 handleDelete={this.context.handleDelete}
                 id={note.id}
                 name={note.name}
                 modified={note.modified}
+                folder_id={note.folder_id}
               />
             </li>
           )}
@@ -46,10 +46,3 @@ NoteListMain.defaultProps = {
   notes: [],
 }
 
-NoteListMain.propTypes = {
-  match: shape({
-    params: shape({
-      folderId: string
-    })
-  })
-}

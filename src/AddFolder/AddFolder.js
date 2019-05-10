@@ -4,6 +4,8 @@ import Error from '../Error'
 import PropTypes from 'prop-types'
 import './AddFolder.css'
 import NoteContext from '../NoteContext'
+require('dotenv').config()
+
 
 export default class AddFolder extends Component {
   static contextType = NoteContext;
@@ -25,14 +27,16 @@ export default class AddFolder extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
+    
     const options = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer 5ea97ca2-02d9-4c1e-9089-8c26f957fdb8`
       }, 
       body: JSON.stringify({name: this.state.name})
     }
-    fetch('http://localhost:9090/folders/', options)
+    fetch('http://localhost:8000/api/folders/', options)
       .then(res => {
         if(!res.ok) {
           throw new Error('Something went wrong. Please refresh the page.')
@@ -42,8 +46,7 @@ export default class AddFolder extends Component {
       .then(data => data.json())
       .then(results => {
         const newFolder = {
-          name: results.name,
-          id: results.id
+          name: results.name
         }
         this.context.handleFolderAdd(newFolder)
       })

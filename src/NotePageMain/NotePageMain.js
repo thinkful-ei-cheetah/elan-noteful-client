@@ -2,14 +2,14 @@ import React, {Component } from 'react'
 import Note from '../Note/Note'
 import { findNote } from '../notes-helpers';
 import './NotePageMain.css';
-import { shape, string } from 'prop-types'
+// import { shape, string } from 'prop-types'
 import NoteContext from '../NoteContext';
 
 export default class NotePageMain extends Component{
   static contextType = NoteContext;
   render() {
     const { noteId } = this.props.match.params;
-    const note = findNote(this.context.notes, noteId);
+    const note = findNote(this.context.notes, parseInt(noteId));
   return (
       <section className='NotePageMain'>
         <Note
@@ -33,10 +33,10 @@ NotePageMain.defaultProps = {
   }
 }
 
-NotePageMain.propTypes = {
-  match: shape({
-    params: shape({
-      noteId: string
-    })
-  })
-}
+// NotePageMain.propTypes = {
+//   match: shape({
+//     params: shape({
+//       noteId: string
+//     })
+//   })
+// }

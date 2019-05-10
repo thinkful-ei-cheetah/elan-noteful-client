@@ -18,8 +18,8 @@ class App extends Component {
     folders: [],
     error: null
   };
-  FolderUrl = 'http://localhost:9090/folders';
-  NoteUrl = 'http://localhost:9090/notes';
+  FolderUrl = 'http://localhost:8000/api/folders';
+  NoteUrl = 'http://localhost:8000/api/notes';
 
   componentDidMount() {
     // fake date loading from API call
@@ -135,7 +135,7 @@ class App extends Component {
     const { notes, folders } = this.state;
     return (
       <>
-        {['/', '/folder/:folderId'].map(path => (
+        {['/', '/folder/:folder_id'].map(path => (
           <Route exact key={path} path={path} component={NoteListNav} />
         ))}
         <Route
