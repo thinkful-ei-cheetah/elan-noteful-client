@@ -46,7 +46,8 @@ export default class AddFolder extends Component {
       .then(data => data.json())
       .then(results => {
         const newFolder = {
-          name: results.name
+          name: results.name,
+          id: results.id
         }
         this.context.handleFolderAdd(newFolder)
       })

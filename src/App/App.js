@@ -89,9 +89,8 @@ class App extends Component {
         if(!res.ok) {
           throw new Error('Something went wrong');
         }
-        return res;
+        return res.json();
       })
-      .then(res => res.json())
       .then(data => {
         this.setState({
           notes: newNotes,
@@ -115,9 +114,8 @@ class App extends Component {
         if(!res.ok) {
           throw new Error('Something went wrong');
         }
-        return res;
+        return res.json();
       })
-      .then(res => res.json())
       .then(data => {
         this.setState({
           folders: newFolders,
