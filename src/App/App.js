@@ -84,24 +84,29 @@ class App extends Component {
     const options = {
       method: 'DELETE'
     }
+    this.setState({
+      notes: newNotes,
+      error: null
+    })
     fetch(`${this.NoteUrl}/${id}`, options)
-      .then(res => {
-        if(!res.ok) {
-          throw new Error('Something went wrong');
-        }
-        return res.json();
+    .then(res => {
+      if(!res.ok) {
+        throw new Error('Something went wrong');
+      }
+      return res.json();
+    })
+    .then(data => {
+      this.setState({
+        notes: newNotes,
+        error: null
+      });
+    })
+    .catch(err => {
+      this.setState({
+        error: err.message
       })
-      .then(data => {
-        this.setState({
-          notes: newNotes,
-          error: null
-        });
-      })
-      .catch(err => {
-        this.setState({
-          error: err.message
-        })
-      })
+    })
+    
   }
 
   handleDeleteFolder = id => {
@@ -109,18 +114,16 @@ class App extends Component {
     const options = {
       method: 'DELETE'
     }
+    this.setState({
+      folders: newFolders,
+      error: null
+    });
     fetch(`${this.FolderUrl}/${id}`, options)
       .then(res => {
         if(!res.ok) {
           throw new Error('Something went wrong');
         }
         return res.json();
-      })
-      .then(data => {
-        this.setState({
-          folders: newFolders,
-          error: null
-        });
       })
       .catch(err => {
         this.setState({
